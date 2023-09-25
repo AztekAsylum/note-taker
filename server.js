@@ -1,6 +1,8 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
+// helper method for generating unique ids
+const uuid = require("uuid"); //
 
 const app = express();
 
@@ -9,6 +11,7 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+// http:localhost:3001/notes
 app.get("/notes", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/notes.html"));
 });
@@ -16,18 +19,12 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
-// app.get("/assets/css/styles.css", (req, res) => {
-//   res.sendFile(path.join(__dirname, "./public/assets/css/styles.css"));
-// });
-
-// app.get("/assets/js/index.js", (req, res) => {
-//   res.sendFile(path.join(__dirname, "./public/assets/js/index.js"));
-// });
-
+// http:localhost:3001/api/notes
 app.get("/api/notes", (req, res) => {
   res.sendFile(path.join(__dirname, "./db/db.json"));
 });
 
+// http:localhost:3001/api/notes
 app.post("/api/notes", (req, res) => {
   const newNote = {
     title: req.body.title,
