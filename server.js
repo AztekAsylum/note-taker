@@ -2,8 +2,7 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 // helper method for generating unique ids
-const uuid = require("uuid"); //
-
+const { v4: uuidv4 } = require('uuid');
 const app = express();
 
 // middlewares
@@ -27,6 +26,7 @@ app.get("/api/notes", (req, res) => {
 // http:localhost:3001/api/notes
 app.post("/api/notes", (req, res) => {
   const newNote = {
+    id: uuidv4(),
     title: req.body.title,
     text: req.body.text,
   };
